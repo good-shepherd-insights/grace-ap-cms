@@ -54,6 +54,23 @@ export default buildConfig({
   ],
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: '- Grace Advanced Productions',
+      description: 'Grace Advanced Productions',
+      // A screenshot of the login (public/og-image.png) instead of Payload's
+      // generated card, which advertises Payload.
+      defaultOGImageType: 'off',
+      openGraph: {
+        siteName: 'Grace Advanced Productions',
+        description: 'Grace Advanced Productions',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Grace Advanced Productions sign-in' }],
+      },
+      // Tab and home-screen icon from the site's own brand favicon upload.
+      icons: [
+        { rel: 'icon', url: '/brand-icon' },
+        { rel: 'apple-touch-icon', url: '/brand-icon' },
+      ],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -62,6 +79,7 @@ export default buildConfig({
         Logo: '/admin/Logo#default',
         Icon: '/admin/Icon#default',
       },
+      beforeLogin: ['/admin/LoginBrand#default'],
       afterLogin: ['/admin/PasskeyLogin#default'],
     },
     livePreview: {

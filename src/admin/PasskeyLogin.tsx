@@ -40,7 +40,8 @@ export default function PasskeyLogin() {
   }
 
   return (
-    <div style={{ marginTop: 'var(--base)' }}>
+    <div className="passkey-login">
+      <span className="passkey-login__or">or</span>
       <Button buttonStyle="secondary" size="large" onClick={signIn} disabled={busy} type="button">
         {busy ? 'Waiting for passkey…' : 'Sign in with a passkey'}
       </Button>

@@ -213,28 +213,363 @@ export interface Section {
    */
   slug: string;
   title: string;
-  sections: {
-    logo: string | Media;
-    searchPlaceholder: string;
-    searchAction: string;
-    servicesLabel: string;
-    servicesHref: string;
-    callLabel: string;
-    callHref: string;
-    primaryLabel: string;
-    primaryHref: string;
-    brandLabel?: string | null;
-    links?:
-      | {
-          label?: string | null;
+  sections: (
+    | {
+        logo: string | Media;
+        homeLabel: string;
+        links: {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[];
+        callLabel: string;
+        callHref: string;
+        menuLabel: string;
+        closeLabel: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'navbar';
+      }
+    | {
+        topLine: string;
+        bottomLine: string;
+        /**
+         * A word from the bottom line to show in the accent colour.
+         */
+        accentWord?: string | null;
+        leftLabel: string;
+        rightLabel: string;
+        /**
+         * The first image shows first; the rest wipe in on a loop.
+         */
+        images: {
+          image: string | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'homeHero';
+      }
+    | {
+        eyebrow: string;
+        statement: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'statement';
+      }
+    | {
+        /**
+         * One line per row.
+         */
+        statement: string;
+        /**
+         * A word from the statement to show in the accent colour.
+         */
+        accentWord?: string | null;
+        /**
+         * Each image opens from its centre line, one after another; the last one stays.
+         */
+        images: {
+          image: string | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'shutter';
+      }
+    | {
+        items: {
+          title: string;
+          tagline: string;
+          href?: string | null;
+          image: string | Media;
+          /**
+           * Optional: revealed beside the main image when the card reaches the middle of the screen.
+           */
+          leftImage?: (string | null) | Media;
+          rightImage?: (string | null) | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'featuredWork';
+      }
+    | {
+        eyebrow: string;
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pageTitle';
+      }
+    | {
+        gridLabel: string;
+        listLabel: string;
+        /**
+         * Accessible name for the Grid/List switch.
+         */
+        viewLabel: string;
+        items: {
+          name: string;
+          tagline: string;
+          sector?: string | null;
+          href?: string | null;
+          image: string | Media;
+          /**
+           * Shown in a strip when the row is hovered in List view.
+           */
+          previews?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'projectGallery';
+      }
+    | {
+        topLine: string;
+        bottomLine: string;
+        /**
+         * A word from the bottom line to show in the accent colour.
+         */
+        accentWord?: string | null;
+        /**
+         * 8 are shown at a time; with more than 8, one swaps every 2 seconds.
+         */
+        phrases: {
+          text: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'rotatingList';
+      }
+    | {
+        cards: {
+          /**
+           * One line per row.
+           */
+          title: string;
+          description: string;
+          image: string | Media;
+          theme: 'red' | 'black' | 'cream' | 'grey';
+          points: {
+            text: string;
+            id?: string | null;
+          }[];
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'serviceStack';
+      }
+    | {
+        /**
+         * One sentence per line.
+         */
+        lines: string;
+        /**
+         * Show the last line in the accent colour.
+         */
+        fadedLastLine?: boolean | null;
+        /**
+         * One line per row.
+         */
+        heading: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'manifesto';
+      }
+    | {
+        intro: string;
+        previousLabel: string;
+        nextLabel: string;
+        members: {
+          name: string;
+          role: string;
+          bio: string;
+          photo?: (string | null) | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'teamSlider';
+      }
+    | {
+        title: string;
+        /**
+         * Accessible name for the sector list.
+         */
+        filterLabel: string;
+        /**
+         * Optional sector chips shown above the client list.
+         */
+        sectors?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        clients: {
+          name: string;
+          sector?: string | null;
           href?: string | null;
           id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'navbar';
-  }[];
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'clientsIndex';
+      }
+    | {
+        image: string | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'fullBleedImage';
+      }
+    | {
+        title: string;
+        items: {
+          label: string;
+          value: string;
+          href?: string | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contactHero';
+      }
+    | {
+        title: string;
+        tagline: string;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseHero';
+      }
+    | {
+        /**
+         * Shown alone, or as the video's poster frame.
+         */
+        image: string | Media;
+        /**
+         * Optional MP4 URL; plays muted on a loop while on screen.
+         */
+        videoUrl?: string | null;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseBanner';
+      }
+    | {
+        tag: string;
+        heading: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseIntro';
+      }
+    | {
+        /**
+         * Accordion panels; the first starts open.
+         */
+        panels: {
+          title: string;
+          body: string;
+          id?: string | null;
+        }[];
+        statValue?: string | null;
+        statLabel?: string | null;
+        /**
+         * The first spans the full width; the next two sit side by side.
+         */
+        images?:
+          | {
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseBrief';
+      }
+    | {
+        items: {
+          /**
+           * Shown alone, or as the video's poster frame.
+           */
+          image: string | Media;
+          /**
+           * Optional MP4 URL; loads near the viewport and plays muted while visible.
+           */
+          videoUrl?: string | null;
+          span: 'full' | 'two-thirds' | 'half' | 'third';
+          ratio: 'square' | 'portrait' | 'landscape' | 'wide';
+          /**
+           * Run to the screen edges (full-width items only).
+           */
+          bleed?: boolean | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaGrid';
+      }
+    | {
+        quote: string;
+        attribution: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'quote';
+      }
+    | {
+        title: string;
+        tagline: string;
+        href: string;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'nextBlock';
+      }
+    | {
+        /**
+         * One line per row of the slogan.
+         */
+        slogan: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'postFooter';
+      }
+    | {
+        contactLabel: string;
+        email: string;
+        locationLabel: string;
+        address: string;
+        /**
+         * One line per row of the large slogan.
+         */
+        slogan: string;
+        /**
+         * A word from the slogan to show in the accent colour.
+         */
+        accentWord?: string | null;
+        socialLinks?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Shown before the current year, e.g. “Grace ©”.
+         */
+        copyright: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'siteFooter';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -250,28 +585,363 @@ export interface Page {
    */
   slug: string;
   title: string;
-  sections: {
-    logo: string | Media;
-    searchPlaceholder: string;
-    searchAction: string;
-    servicesLabel: string;
-    servicesHref: string;
-    callLabel: string;
-    callHref: string;
-    primaryLabel: string;
-    primaryHref: string;
-    brandLabel?: string | null;
-    links?:
-      | {
-          label?: string | null;
+  sections: (
+    | {
+        logo: string | Media;
+        homeLabel: string;
+        links: {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[];
+        callLabel: string;
+        callHref: string;
+        menuLabel: string;
+        closeLabel: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'navbar';
+      }
+    | {
+        topLine: string;
+        bottomLine: string;
+        /**
+         * A word from the bottom line to show in the accent colour.
+         */
+        accentWord?: string | null;
+        leftLabel: string;
+        rightLabel: string;
+        /**
+         * The first image shows first; the rest wipe in on a loop.
+         */
+        images: {
+          image: string | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'homeHero';
+      }
+    | {
+        eyebrow: string;
+        statement: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'statement';
+      }
+    | {
+        /**
+         * One line per row.
+         */
+        statement: string;
+        /**
+         * A word from the statement to show in the accent colour.
+         */
+        accentWord?: string | null;
+        /**
+         * Each image opens from its centre line, one after another; the last one stays.
+         */
+        images: {
+          image: string | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'shutter';
+      }
+    | {
+        items: {
+          title: string;
+          tagline: string;
+          href?: string | null;
+          image: string | Media;
+          /**
+           * Optional: revealed beside the main image when the card reaches the middle of the screen.
+           */
+          leftImage?: (string | null) | Media;
+          rightImage?: (string | null) | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'featuredWork';
+      }
+    | {
+        eyebrow: string;
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pageTitle';
+      }
+    | {
+        gridLabel: string;
+        listLabel: string;
+        /**
+         * Accessible name for the Grid/List switch.
+         */
+        viewLabel: string;
+        items: {
+          name: string;
+          tagline: string;
+          sector?: string | null;
+          href?: string | null;
+          image: string | Media;
+          /**
+           * Shown in a strip when the row is hovered in List view.
+           */
+          previews?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'projectGallery';
+      }
+    | {
+        topLine: string;
+        bottomLine: string;
+        /**
+         * A word from the bottom line to show in the accent colour.
+         */
+        accentWord?: string | null;
+        /**
+         * 8 are shown at a time; with more than 8, one swaps every 2 seconds.
+         */
+        phrases: {
+          text: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'rotatingList';
+      }
+    | {
+        cards: {
+          /**
+           * One line per row.
+           */
+          title: string;
+          description: string;
+          image: string | Media;
+          theme: 'red' | 'black' | 'cream' | 'grey';
+          points: {
+            text: string;
+            id?: string | null;
+          }[];
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'serviceStack';
+      }
+    | {
+        /**
+         * One sentence per line.
+         */
+        lines: string;
+        /**
+         * Show the last line in the accent colour.
+         */
+        fadedLastLine?: boolean | null;
+        /**
+         * One line per row.
+         */
+        heading: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'manifesto';
+      }
+    | {
+        intro: string;
+        previousLabel: string;
+        nextLabel: string;
+        members: {
+          name: string;
+          role: string;
+          bio: string;
+          photo?: (string | null) | Media;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'teamSlider';
+      }
+    | {
+        title: string;
+        /**
+         * Accessible name for the sector list.
+         */
+        filterLabel: string;
+        /**
+         * Optional sector chips shown above the client list.
+         */
+        sectors?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        clients: {
+          name: string;
+          sector?: string | null;
           href?: string | null;
           id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'navbar';
-  }[];
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'clientsIndex';
+      }
+    | {
+        image: string | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'fullBleedImage';
+      }
+    | {
+        title: string;
+        items: {
+          label: string;
+          value: string;
+          href?: string | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contactHero';
+      }
+    | {
+        title: string;
+        tagline: string;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseHero';
+      }
+    | {
+        /**
+         * Shown alone, or as the video's poster frame.
+         */
+        image: string | Media;
+        /**
+         * Optional MP4 URL; plays muted on a loop while on screen.
+         */
+        videoUrl?: string | null;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseBanner';
+      }
+    | {
+        tag: string;
+        heading: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseIntro';
+      }
+    | {
+        /**
+         * Accordion panels; the first starts open.
+         */
+        panels: {
+          title: string;
+          body: string;
+          id?: string | null;
+        }[];
+        statValue?: string | null;
+        statLabel?: string | null;
+        /**
+         * The first spans the full width; the next two sit side by side.
+         */
+        images?:
+          | {
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseBrief';
+      }
+    | {
+        items: {
+          /**
+           * Shown alone, or as the video's poster frame.
+           */
+          image: string | Media;
+          /**
+           * Optional MP4 URL; loads near the viewport and plays muted while visible.
+           */
+          videoUrl?: string | null;
+          span: 'full' | 'two-thirds' | 'half' | 'third';
+          ratio: 'square' | 'portrait' | 'landscape' | 'wide';
+          /**
+           * Run to the screen edges (full-width items only).
+           */
+          bleed?: boolean | null;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaGrid';
+      }
+    | {
+        quote: string;
+        attribution: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'quote';
+      }
+    | {
+        title: string;
+        tagline: string;
+        href: string;
+        accent: 'red' | 'black' | 'cream' | 'grey';
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'nextBlock';
+      }
+    | {
+        /**
+         * One line per row of the slogan.
+         */
+        slogan: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'postFooter';
+      }
+    | {
+        contactLabel: string;
+        email: string;
+        locationLabel: string;
+        address: string;
+        /**
+         * One line per row of the large slogan.
+         */
+        slogan: string;
+        /**
+         * A word from the slogan to show in the accent colour.
+         */
+        accentWord?: string | null;
+        socialLinks?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Shown before the current year, e.g. “Grace ©”.
+         */
+        copyright: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'siteFooter';
+      }
+  )[];
   /**
    * Global components (from SiteGlobals.components) to hide on this page only.
    */
@@ -499,15 +1169,7 @@ export interface SectionsSelect<T extends boolean = true> {
           | T
           | {
               logo?: T;
-              searchPlaceholder?: T;
-              searchAction?: T;
-              servicesLabel?: T;
-              servicesHref?: T;
-              callLabel?: T;
-              callHref?: T;
-              primaryLabel?: T;
-              primaryHref?: T;
-              brandLabel?: T;
+              homeLabel?: T;
               links?:
                 | T
                 | {
@@ -515,6 +1177,314 @@ export interface SectionsSelect<T extends boolean = true> {
                     href?: T;
                     id?: T;
                   };
+              callLabel?: T;
+              callHref?: T;
+              menuLabel?: T;
+              closeLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        homeHero?:
+          | T
+          | {
+              topLine?: T;
+              bottomLine?: T;
+              accentWord?: T;
+              leftLabel?: T;
+              rightLabel?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              eyebrow?: T;
+              statement?: T;
+              id?: T;
+              blockName?: T;
+            };
+        shutter?:
+          | T
+          | {
+              statement?: T;
+              accentWord?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        featuredWork?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    title?: T;
+                    tagline?: T;
+                    href?: T;
+                    image?: T;
+                    leftImage?: T;
+                    rightImage?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pageTitle?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        projectGallery?:
+          | T
+          | {
+              gridLabel?: T;
+              listLabel?: T;
+              viewLabel?: T;
+              items?:
+                | T
+                | {
+                    name?: T;
+                    tagline?: T;
+                    sector?: T;
+                    href?: T;
+                    image?: T;
+                    previews?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        rotatingList?:
+          | T
+          | {
+              topLine?: T;
+              bottomLine?: T;
+              accentWord?: T;
+              phrases?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        serviceStack?:
+          | T
+          | {
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    theme?: T;
+                    points?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        manifesto?:
+          | T
+          | {
+              lines?: T;
+              fadedLastLine?: T;
+              heading?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teamSlider?:
+          | T
+          | {
+              intro?: T;
+              previousLabel?: T;
+              nextLabel?: T;
+              members?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    bio?: T;
+                    photo?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        clientsIndex?:
+          | T
+          | {
+              title?: T;
+              filterLabel?: T;
+              sectors?:
+                | T
+                | {
+                    label?: T;
+                    id?: T;
+                  };
+              clients?:
+                | T
+                | {
+                    name?: T;
+                    sector?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        fullBleedImage?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactHero?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseHero?:
+          | T
+          | {
+              title?: T;
+              tagline?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseBanner?:
+          | T
+          | {
+              image?: T;
+              videoUrl?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseIntro?:
+          | T
+          | {
+              tag?: T;
+              heading?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseBrief?:
+          | T
+          | {
+              panels?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              statValue?: T;
+              statLabel?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaGrid?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    image?: T;
+                    videoUrl?: T;
+                    span?: T;
+                    ratio?: T;
+                    bleed?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              quote?: T;
+              attribution?: T;
+              id?: T;
+              blockName?: T;
+            };
+        nextBlock?:
+          | T
+          | {
+              title?: T;
+              tagline?: T;
+              href?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        postFooter?:
+          | T
+          | {
+              slogan?: T;
+              id?: T;
+              blockName?: T;
+            };
+        siteFooter?:
+          | T
+          | {
+              contactLabel?: T;
+              email?: T;
+              locationLabel?: T;
+              address?: T;
+              slogan?: T;
+              accentWord?: T;
+              socialLinks?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              copyright?: T;
               id?: T;
               blockName?: T;
             };
@@ -537,15 +1507,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               logo?: T;
-              searchPlaceholder?: T;
-              searchAction?: T;
-              servicesLabel?: T;
-              servicesHref?: T;
-              callLabel?: T;
-              callHref?: T;
-              primaryLabel?: T;
-              primaryHref?: T;
-              brandLabel?: T;
+              homeLabel?: T;
               links?:
                 | T
                 | {
@@ -553,6 +1515,314 @@ export interface PagesSelect<T extends boolean = true> {
                     href?: T;
                     id?: T;
                   };
+              callLabel?: T;
+              callHref?: T;
+              menuLabel?: T;
+              closeLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        homeHero?:
+          | T
+          | {
+              topLine?: T;
+              bottomLine?: T;
+              accentWord?: T;
+              leftLabel?: T;
+              rightLabel?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              eyebrow?: T;
+              statement?: T;
+              id?: T;
+              blockName?: T;
+            };
+        shutter?:
+          | T
+          | {
+              statement?: T;
+              accentWord?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        featuredWork?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    title?: T;
+                    tagline?: T;
+                    href?: T;
+                    image?: T;
+                    leftImage?: T;
+                    rightImage?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pageTitle?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        projectGallery?:
+          | T
+          | {
+              gridLabel?: T;
+              listLabel?: T;
+              viewLabel?: T;
+              items?:
+                | T
+                | {
+                    name?: T;
+                    tagline?: T;
+                    sector?: T;
+                    href?: T;
+                    image?: T;
+                    previews?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        rotatingList?:
+          | T
+          | {
+              topLine?: T;
+              bottomLine?: T;
+              accentWord?: T;
+              phrases?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        serviceStack?:
+          | T
+          | {
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    image?: T;
+                    theme?: T;
+                    points?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        manifesto?:
+          | T
+          | {
+              lines?: T;
+              fadedLastLine?: T;
+              heading?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teamSlider?:
+          | T
+          | {
+              intro?: T;
+              previousLabel?: T;
+              nextLabel?: T;
+              members?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    bio?: T;
+                    photo?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        clientsIndex?:
+          | T
+          | {
+              title?: T;
+              filterLabel?: T;
+              sectors?:
+                | T
+                | {
+                    label?: T;
+                    id?: T;
+                  };
+              clients?:
+                | T
+                | {
+                    name?: T;
+                    sector?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        fullBleedImage?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactHero?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseHero?:
+          | T
+          | {
+              title?: T;
+              tagline?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseBanner?:
+          | T
+          | {
+              image?: T;
+              videoUrl?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseIntro?:
+          | T
+          | {
+              tag?: T;
+              heading?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseBrief?:
+          | T
+          | {
+              panels?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              statValue?: T;
+              statLabel?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaGrid?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    image?: T;
+                    videoUrl?: T;
+                    span?: T;
+                    ratio?: T;
+                    bleed?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              quote?: T;
+              attribution?: T;
+              id?: T;
+              blockName?: T;
+            };
+        nextBlock?:
+          | T
+          | {
+              title?: T;
+              tagline?: T;
+              href?: T;
+              accent?: T;
+              id?: T;
+              blockName?: T;
+            };
+        postFooter?:
+          | T
+          | {
+              slogan?: T;
+              id?: T;
+              blockName?: T;
+            };
+        siteFooter?:
+          | T
+          | {
+              contactLabel?: T;
+              email?: T;
+              locationLabel?: T;
+              address?: T;
+              slogan?: T;
+              accentWord?: T;
+              socialLinks?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              copyright?: T;
               id?: T;
               blockName?: T;
             };

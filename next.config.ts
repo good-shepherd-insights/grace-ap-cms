@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+  // The CMS has no public front page: its root opens the admin (the login
+  // screen until signed in). Temporary, so a future front page can take over.
+  async redirects() {
+    return [{ source: '/', destination: '/admin', permanent: false }]
+  },
   turbopack: {
     root: path.resolve(dirname),
   },
